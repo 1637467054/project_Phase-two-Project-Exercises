@@ -1,36 +1,32 @@
-package com.course;
+package com.course.system;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-@EnableEurekaServer//在项目启动类上使用@EnableEurekaServer，可以将项目作为SpringCloud中的注册中心。
-public class ProjectApplication {
+public class SystemApplication {
     /**
      * SpringBoot默认集成slf4j框架,它定义了一些日志接口,规范日志输出,真正的是
      * 现实     logback     或log4j.我们代码中写的都是slf4j的代码.
      */
-    private static final Logger LOG= LoggerFactory.getLogger(ProjectApplication.class);
+    private static final Logger LOG= LoggerFactory.getLogger(SystemApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication app=new SpringApplication(ProjectApplication.class);
+        SpringApplication app=new SpringApplication(SystemApplication.class);
         Environment env=app.run(args).getEnvironment();
         LOG.info("启动成功功！！");
         //下面这行代码是老师的代码
 //        LOG.info("Eureka地址：\thttp://127.0.0.1:{}",env.getProperty("server.port"));
 
-        LOG.info("Eureka地址：\t"+new ServerConfig().getUrl()+env.getProperty("server.port"));
+        LOG.info("System地址：\t"+new ServerConfig().getUrl()+env.getProperty("server.port"));
 
     }
 
@@ -42,7 +38,6 @@ public class ProjectApplication {
       * @return 
       */
     public static class ServerConfig  implements ApplicationListener<WebServerInitializedEvent> {
-        private int serverPort;
 
         public String getUrl() {
             InetAddress address = null;
@@ -53,11 +48,11 @@ public class ProjectApplication {
             }
             return "http://"+address.getHostAddress() +":";
         }
-        @Override
-        public void onApplicationEvent(WebServerInitializedEvent event) {
-            this.serverPort = event.getWebServer().getPort();
-        }
 
+        @Override
+        public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
+
+        }
     }
 
 }

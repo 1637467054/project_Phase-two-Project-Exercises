@@ -2,7 +2,7 @@
 <configuration>
     <!--!!!!!!!!!!!!!!          SpringBoot默认使用的日志框架是logback          !!!!!!!!!!!!!!-->
     <!-- 修改一下路径,这里路径的根路径是现在的项目所在盘符-->
-    <property name="PATH" value="/JAVA_log/project_二期项目练习/eureka"></property>
+    <property name="PATH" value="/JAVA_log/project_二期项目练习/system"></property>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -23,8 +23,10 @@
     <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${PATH}/trace.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这里配置的是配置文件的格式,也就是自动生成的时候配置文件的名字-->
             <FileNamePattern>${PATH}/trace.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--每个文件最大是10MB,超过10MB之后就会出现一个新的文件-->
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
@@ -37,8 +39,10 @@
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${PATH}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这里配置的是配置文件的格式,也就是自动生成的时候配置文件的名字-->
             <FileNamePattern>${PATH}/error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--每个文件最大是10MB,超过10MB之后就会出现一个新的文件-->
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
