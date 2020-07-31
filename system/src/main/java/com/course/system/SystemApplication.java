@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
 
@@ -12,6 +13,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
+@EnableEurekaClient//这是用来向注册中心注册的注解
 public class SystemApplication {
     /**
      * SpringBoot默认集成slf4j框架,它定义了一些日志接口,规范日志输出,真正的是
