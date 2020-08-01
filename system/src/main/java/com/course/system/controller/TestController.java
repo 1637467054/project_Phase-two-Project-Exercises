@@ -1,7 +1,12 @@
 package com.course.system.controller;
 
+import com.course.system.entity.Test;
+import com.course.system.service.TestService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @version :V1.0
@@ -12,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
+    @Resource
+    TestService testService;
 
+//    @GetMapping(value = "/test", produces = { "application/json;charset=UTF-8" })
     @RequestMapping("/test")
-    public String test(){
-        return "testController";
+    public List<Test> test(){
+        return testService.list();
     }
 }
