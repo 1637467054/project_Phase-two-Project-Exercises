@@ -9,23 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>system</artifactId>
+    <artifactId>common</artifactId>
+
     <dependencies>
-        <dependency>
-            <groupId>com.aaa</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--这个是SpringBoot的基本的一个依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--这个是用来作为一个注册中心的客户端的依赖-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>2.2.3.RELEASE</version>
         </dependency>
         <!-- Spring Boot整合mybatis的jar包 -->
         <dependency>
@@ -49,6 +39,4 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
     </dependencies>
-
-
 </project>

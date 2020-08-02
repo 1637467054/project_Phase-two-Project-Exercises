@@ -1,4 +1,4 @@
-package com.course.system.entity;
+package com.aaa.common.entity;
 
 import lombok.Data;
 

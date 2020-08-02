@@ -1,6 +1,6 @@
-package com.course.system.dao;
+package com.aaa.common.dao;
 
-import com.course.system.entity.Test;
+import com.aaa.common.entity.Test;
 
 import java.util.List;
 
