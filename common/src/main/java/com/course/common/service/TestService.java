@@ -1,9 +1,8 @@
-package com.aaa.common.service;
+package com.course.common.service;
 
 
-import com.aaa.common.dao.TestMapper;
-import com.aaa.common.entity.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.course.common.dao.TestMapper;
+import com.course.common.entity.Test;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

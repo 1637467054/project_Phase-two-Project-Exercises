@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+common/src/test/
+eureka/src/test/
+gateway/src/test/
+system/src/test/

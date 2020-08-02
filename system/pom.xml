@@ -11,10 +11,10 @@
 
     <artifactId>system</artifactId>
     <dependencies>
+        <!--引用公共包-->
         <dependency>
             <groupId>com.aaa</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--这个是SpringBoot的基本的一个依赖-->
         <dependency>

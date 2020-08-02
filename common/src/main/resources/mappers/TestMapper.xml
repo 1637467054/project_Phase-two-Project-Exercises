@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.aaa.common.dao.TestMapper">
+<mapper namespace="com.course.common.dao.TestMapper">
     <!--部门列表-->
-    <select id="list" resultType="com.aaa.common.entity.Test">
+    <select id="list" resultType="com.course.common.entity.Test">
         select * from test
     </select>
 </mapper>
