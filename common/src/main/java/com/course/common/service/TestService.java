@@ -3,6 +3,7 @@ package com.course.common.service;
 
 import com.course.common.dao.TestMapper;
 import com.course.common.entity.Test;
+import com.course.common.entity.TestExample;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +16,8 @@ public class TestService {
     private TestMapper testMapper;
 
     public List<Test> list(){
-        return testMapper.list();
+        TestExample testExample=new TestExample();
+        testExample.setOrderByClause("id desc");
+        return testMapper.selectByExample(testExample);
     }
 }

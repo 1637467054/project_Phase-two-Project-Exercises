@@ -10,7 +10,7 @@
         <property name="beginningDelimiter" value="`"/>
         <!--结束分割符-->
         <property name="endingDelimiter" value="`"/>
-        <!--覆盖生成XML文件-->
+        <!--覆盖生成XML文件,如果不添加的话它会把新生成的代码追加写到原来的代码后面(1.3.7之后解决这个问题)-->
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
         <!-- 生成的实体类添加toString()方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
