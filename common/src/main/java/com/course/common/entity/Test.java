@@ -1,16 +1,35 @@
 package com.course.common.entity;
 
-import lombok.Data;
-
-/**
- * @version :V1.0
- * @auto :李俨稹
- * @date ：Created in 2020/8/1  16:35
- * @description :这是一个Test实体类
- * @modified By :
- */
-@Data
 public class Test {
     private String id;
+
     private String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append("]");
+        return sb.toString();
+    }
 }

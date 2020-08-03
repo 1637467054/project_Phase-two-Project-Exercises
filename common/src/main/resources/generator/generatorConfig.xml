@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="autoDelimitKeywords" value="true"/>
+        <!--分隔符是在表名或列名前后都增加一个“`”号，是为了避免关键字，在这时候关键字也可以被当作表名-->
+        <!--开始分割符-->
+        <property name="beginningDelimiter" value="`"/>
+        <!--结束分割符-->
+        <property name="endingDelimiter" value="`"/>
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <!-- 生成的实体类添加toString()方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!-- 不生成注释 (因为mybatis默认生成的注释是一堆英文,我们不需要)-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--这里配置的是数据库的链接还有驱动包-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/zuoye007"
+                        userId="root"
+                        password="1637467054">
+        </jdbcConnection>
+        <!--下面是我们要生成文件的路径-->
+        <!-- 实体类类的位置 -->
+        <javaModelGenerator targetProject="src\main\java"
+                            targetPackage="com.course.common.entity"/>
+        <!-- mapper xml的位置 -->
+        <sqlMapGenerator targetProject="src\main\resources"
+                         targetPackage="mappers"/>
+        <!-- mapper类的位置 -->
+        <!--
+        type属性的设置有三种生成方式：
+                        1、ANNOTATEDMAPPER(生成的SQL全部在Java中)
+                        2、MIXEDMAPPER (SQL部分在Java中,部分在XML中)
+                        3、XMLMAPPER (生成的SQL全部在XML中)
+        推荐使用: XMLMAPPER，将Java代码与SQL代码分离
+        -->
+        <javaClientGenerator targetProject="src\main\java"
+                             targetPackage="com.course.common.dao"
+                             type="XMLMAPPER" />
+        <!--下面的都是表的生成方法-->
+        <table tableName="test" domainObjectName="Test"/>
+        <!--<table tableName="chapter" domainObjectName="Chapter"/>-->
+        <!--<table tableName="section" domainObjectName="Section"/>-->
+        <!--<table tableName="course" domainObjectName="Course"/>-->
+        <!--<table tableName="course_content" domainObjectName="CourseContent"/>-->
+        <!--<table tableName="course_content_file" domainObjectName="CourseContentFile"/>-->
+        <!--<table tableName="teacher" domainObjectName="Teacher"/>-->
+        <!--<table tableName="file" domainObjectName="File"/>-->
+        <!--<table tableName="user" domainObjectName="User"/>-->
+        <!--<table tableName="resource" domainObjectName="Resource"/>-->
+        <!--<table tableName="role" domainObjectName="Role"/>-->
+        <!--<table tableName="role_resource" domainObjectName="RoleResource"/>-->
+        <!--<table tableName="role_user" domainObjectName="RoleUser"/>-->
+        <!--<table tableName="member" domainObjectName="Member"/>-->
+        <!--<table tableName="sms" domainObjectName="Sms"/>-->
+        <!--<table tableName="member_course" domainObjectName="MemberCourse"/>-->
+    </context>
+</generatorConfiguration>
