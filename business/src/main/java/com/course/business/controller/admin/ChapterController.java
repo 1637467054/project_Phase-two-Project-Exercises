@@ -1,6 +1,6 @@
-package com.course.business.controller;
+package com.course.business.controller.admin;
 
-import com.course.common.entity.Chapter;
+import com.course.common.dto.ChapterDto;
 import com.course.common.service.ChapterService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +16,14 @@ import java.util.List;
  * @modified By :
  */
 @RestController
+@RequestMapping("/admin")
 public class ChapterController {
     @Resource
     ChapterService chapterService;
 
 //    @GetMapping(value = "/chapter", produces = { "application/json;charset=UTF-8" })
     @RequestMapping("/chapter")
-    public List<Chapter> chapter(){
+    public List<ChapterDto> chapter(){
         return chapterService.list();
     }
 }
