@@ -363,7 +363,7 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="active open">
+                    <li class="active open"><!--active是激活的状态，open是展开的状态-->
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">

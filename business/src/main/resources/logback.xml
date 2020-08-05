@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--!!!!!!!!!!!!!!          SpringBoot默认使用的日志框架是logback          !!!!!!!!!!!!!!-->
+    <!-- 修改一下路径,这里路径的根路径是现在的项目所在盘符-->
+    <property name="PATH" value="/JAVA_log/project_二期项目练习/business"></property>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--这里配置的是日志输出的一个格式-->
+            <!--注意：如果到了实际项目中,建议使用上面注释掉的打印语句,因为上面注释掉的打印语句才是完整的日志-->
+            <!--上面的的答应语句比下面的：时间完整
+            其它还有：   %-5level：是打印日志的级别,
+                        highlight：是高亮显示，
+                        blue：是打印的颜色
+                        %-30logger{30}:%-4line：输出30个字符的日志,logger是输出答应日志的包名.类名
+                        %msg%n就是日志的信息了-->
+<!--            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %blue(%-50logger{50}:%-4line) %msg%n</Pattern>-->
+            <Pattern>%d{ss.SSS} %highlight(%-5level) %blue(%-30logger{30}:%-4line) %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!--Trace FILE 翻译为 跟踪文件，这个是TRACE级别的日志，可以输出到文件里面去-->
+    <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PATH}/trace.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这里配置的是配置文件的格式,也就是自动生成的时候配置文件的名字-->
+            <FileNamePattern>${PATH}/trace.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--每个文件最大是10MB,超过10MB之后就会出现一个新的文件-->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-50logger{50}:%-4line %green(%-8X{UUID}) %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!--这个是ERROE级别的日志文件-->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PATH}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这里配置的是配置文件的格式,也就是自动生成的时候配置文件的名字-->
+            <FileNamePattern>${PATH}/error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--每个文件最大是10MB,超过10MB之后就会出现一个新的文件-->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-50logger{50}:%-4line %green(%-8X{UUID}) %msg%n</pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--下面分别是三个级别的配置文件，分别输出到三个地方-->
+    <root level="ERROR">
+        <appender-ref ref="ERROR_FILE" />
+    </root>
+
+    <root level="TRACE">
+        <appender-ref ref="TRACE_FILE" />
+    </root>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
