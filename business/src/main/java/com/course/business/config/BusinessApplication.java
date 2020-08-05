@@ -32,7 +32,7 @@ public class BusinessApplication {
         //下面这行代码是老师的代码
 //        LOG.info("Eureka地址：\thttp://127.0.0.1:{}",env.getProperty("server.port"));
 
-        LOG.info("Business地址：\t"+new ServerConfig().getUrl()+env.getProperty("server.port"));
+        LOG.info("Business地址：\t"+new ServerConfig().getUrl()+env.getProperty("server.port")+"/business/chapter");
 
     }
 
