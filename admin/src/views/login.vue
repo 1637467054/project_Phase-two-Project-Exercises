@@ -74,13 +74,22 @@
 </template>
 
 <script>
-    $('body').attr('class', 'login-layout light-login');
     export default {
         name: 'login',
+        mounted: function () {
+            /*
+            vue主键声明周期中有很多钩子函数，mounted和created都是vue的初始函数
+            参考：https://cn.vuejs.org/v2/guide/instance.html
+            created执行更早,在界面渲染之前执行,常用于加载初始化数据。mounted在
+            界面渲染之后执行，常用于对界面元素的初始化操作
+            */
+            // $('body').removeClass('login-layout light-login');
+            $('body').attr('class', 'login-layout light-login');
+        },
         methods: {
             //vue的html中的方法都是在这里实现
             //添加点击事件方法：在标签中添加   v-on:click="login()" 或 @click="login()"   属性
-            login(){
+            login() {
                 //这里时用来实现上面绑定的方法的
                 this.$router.push("/admin")
             }

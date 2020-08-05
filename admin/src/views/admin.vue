@@ -977,8 +977,22 @@
 </template>
 
 <script>
-    $('body').removeClass('login-layout light-login');
-    $('body').attr('class','no-skin')
+    export default {
+        name:'admin',
+        mounted() {
+            /*
+            vue主键声明周期中有很多钩子函数，mounted和created都是vue的初始函数
+            参考：https://cn.vuejs.org/v2/guide/instance.html
+            created执行更早,在界面渲染之前执行,常用于加载初始化数据。mounted在
+            界面渲染之后执行，常用于对界面元素的初始化操作
+            */
+            // $('body').removeClass('login-layout light-login');
+            $('body').attr('class','no-skin');
+        },
+        methods:{
+
+        }
+    }
 </script>
 
 <style scoped>
