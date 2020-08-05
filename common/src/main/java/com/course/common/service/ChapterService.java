@@ -29,8 +29,6 @@ public class ChapterService {
             BeanUtils.copyProperties(chapter,chapterDto);
             chapterDtoList.add(chapterDto);
         }
-//        System.out.println("源数据："+chapterList);
-        System.out.println("源数据："+chapterDtoList);
         return chapterDtoList;
         
     }
