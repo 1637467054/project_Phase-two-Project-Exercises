@@ -91,7 +91,7 @@
             //添加点击事件方法：在标签中添加   v-on:click="login()" 或 @click="login()"   属性
             login() {
                 //这里时用来实现上面绑定的方法的
-                this.$router.push("/admin")
+                this.$router.push("/welcome")
             }
         }
     }

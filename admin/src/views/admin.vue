@@ -13,12 +13,12 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
-                        <small>
+                    <div v-on:click="login()" style="cursor: pointer;" class="navbar-brand">
+                        <small id="login_test_red">
                             <i class="fa fa-leaf"></i>
                             在线视频课程
                         </small>
-                    </a>
+                    </div>
                 </div>
 
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
@@ -354,16 +354,19 @@
                 </div><!-- /.sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
-                    <li class="">
-                        <a href="index.html">
+                    <li class="" id="welcome-sidebar">
+                        <!--router-link的功能和a标签相似,只不过a标签需要从新渲染有视觉闪烁,router-link不需要重新渲染-->
+                        <router-link to="/admin/welcome">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> 欢迎 </span>
-                        </a>
+                        </router-link>
 
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="active open"><!--active是激活的状态，open是展开的状态-->
+                    <!--active是激活的状态，open是展开的状态-->
+                    <!--<li class="active open">-->
+                    <li class="active">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">
@@ -376,6 +379,7 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
+
                             <li class="">
                                 <a href="#" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
@@ -498,6 +502,35 @@
                         </ul>
                     </li>
 
+                    <li class="active"><!--active是激活的状态，open是展开的状态-->
+                        <a href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-pencil-square-o"></i>
+                            <span class="menu-text">
+								业务管理
+							</span>
+
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+
+                        <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li class="active" id="business-chapter-sidebar">
+                                <!--router-link的功能和a标签相似,只不过a标签需要从新渲染有视觉闪烁,router-link不需要重新渲染-->
+                                <router-link to="/admin/business/chapter" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+
+                                    大章管理
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </router-link>
+
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+
+
+                    </li>
+
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -567,11 +600,41 @@
             $('body').attr('class','no-skin');
         },
         methods:{
+            //vue的html中的方法都是在这里实现
+            //添加点击事件方法：在标签中添加   v-on:click="login()" 或 @click="login()"   属性
+            login() {
+                //这里时用来实现上面绑定的方法的
+                this.$router.push("/admin/welcome")
+            },
+            /**
+             * 用来激活菜单的方法
+             * @param id
+             */
+            activeSidebar:function (id) {
+                //删除相邻的标签的激活小三角
+                $("#"+id).siblings().removeClass("active");
+                //给子节点添加激活小三角
+                $("#"+id).siblings().find("li").removeClass("active");
+                //给本标签添加激活小三角
+                $("#"+id).addClass("active");
 
+                //如果有父菜单，父菜单的兄弟菜单去掉open active，父菜单增加open active
+                let parentLi=$("#"+id).parents("li");
+                if(parentLi){
+                    //删除所有祖标签的激活小三角和打开
+                    parentLi.siblings().removeClass("open active");
+                    //删除所有祖标签的子标签的激活小三角
+                    parentLi.siblings().find("li").removeClass("active");
+                    //添加所有组标签的激活小三角和打开
+                    parentLi.addClass("open active");
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
-
+    #login_test_red:hover{
+        color: #30ff3a;
+    }
 </style>

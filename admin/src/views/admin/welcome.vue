@@ -1,12 +1,15 @@
 <template>
     <div>
-        <h1>这个是welcome页面</h1>
+        <h1>欢迎来到welcome页面</h1>
     </div>
 </template>
 
 <script>
     export default {
-        name: "welcome"
+        name: "welcome",
+        mounted:function () {
+            this.$parent.activeSidebar("welcome-sidebar");
+        }
     }
 </script>
 
