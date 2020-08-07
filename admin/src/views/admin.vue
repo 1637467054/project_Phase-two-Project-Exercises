@@ -356,7 +356,7 @@
                 <ul class="nav nav-list">
                     <li class="" id="welcome-sidebar">
                         <!--router-link的功能和a标签相似,只不过a标签需要从新渲染有视觉闪烁,router-link不需要重新渲染-->
-                        <router-link to="/admin/welcome">
+                        <router-link to="/welcome">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> 欢迎 </span>
                         </router-link>
@@ -517,7 +517,7 @@
                         <ul class="submenu">
                             <li class="active" id="business-chapter-sidebar">
                                 <!--router-link的功能和a标签相似,只不过a标签需要从新渲染有视觉闪烁,router-link不需要重新渲染-->
-                                <router-link to="/admin/business/chapter" class="dropdown-toggle">
+                                <router-link to="/business/chapter" class="dropdown-toggle">
                                     <i class="menu-icon fa fa-caret-right"></i>
 
                                     大章管理
@@ -604,7 +604,7 @@
             //添加点击事件方法：在标签中添加   v-on:click="login()" 或 @click="login()"   属性
             login() {
                 //这里时用来实现上面绑定的方法的
-                this.$router.push("/admin/welcome")
+                this.$router.push("/welcome")
             },
             /**
              * 用来激活菜单的方法
