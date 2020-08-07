@@ -590,6 +590,7 @@
     export default {
         name:'admin',
         mounted() {
+            let _this = this;
             /*
             vue主键声明周期中有很多钩子函数，mounted和created都是vue的初始函数
             参考：https://cn.vuejs.org/v2/guide/instance.html
@@ -598,6 +599,8 @@
             */
             // $('body').removeClass('login-layout light-login');
             $('body').attr('class','no-skin');
+            //sidebar激活样式
+            _this.activeSidebar(this.$route.name.replace("/","-")+"-sidebar");
         },
         methods:{
             //vue的html中的方法都是在这里实现
@@ -627,6 +630,23 @@
                     parentLi.siblings().find("li").removeClass("active");
                     //添加所有组标签的激活小三角和打开
                     parentLi.addClass("open active");
+                }
+            }
+        },
+        watch:{
+            /*
+                此时如果从login页面点击登录到welcome页面，welcome
+                并不会有激活样式。这里的watch只在admin下面的子组件
+                互相跳转时有效
+             */
+            $route:{
+                handler:function (val, oldVal) {
+                    // console.log("--------->>页面跳转：",val,oldVal);
+                    let _this = this;
+                    _this.$nextTick(function () {
+                        //亲测可以把这个方法去掉，然后把方法里面的内容放到外边，不影响使用，但是老师加方法了，原因未知
+                        _this.activeSidebar(this.$route.name.replace("/","-")+"-sidebar");
+                    })
                 }
             }
         }
