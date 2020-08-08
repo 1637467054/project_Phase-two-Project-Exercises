@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -55,6 +60,30 @@ public class GatewayApplication {
         public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
 
         }
+    }
+    /**
+      * create by    :李俨稹
+      * description  ：这个是用来解决gateway跨域问题的代码，如果有多个用于写controller层的分布式可以
+      *                用来这个gateway来解决跨域问题，但是如果只有一个或少个可以直接把这个配置代码写到
+      *                公共类或者controller的类中，不影响使用(如果只有一个在这里的配置的代码位置是
+      *                com/course/common/config/ConsConfig.java中)
+     *
+      * create time  ：2020/8/8  8:50
+      * @Param: 
+      * @return org.springframework.web.cors.reactive.CorsWebFilter
+      */
+    @Bean
+    public CorsWebFilter corsFilter(){
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(Boolean.TRUE);
+        config.addAllowedMethod("*");
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        source.registerCorsConfiguration("/**",config);
+        return new CorsWebFilter(source);
     }
 
 }
