@@ -1,5 +1,10 @@
 package com.course.common.entity;
 
+/**
+  * create by    :李俨稹
+  * description  ：这个是用来从dao和server层交互的数据
+  * create time  ：2020/8/9  16:07
+  */
 public class Chapter {
     private String id;
 

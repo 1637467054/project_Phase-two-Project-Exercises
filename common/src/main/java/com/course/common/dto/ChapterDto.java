@@ -1,5 +1,10 @@
 package com.course.common.dto;
 
+/**
+  * create by    :李俨稹
+  * description  ：这是是用来server层和controller层交互数据的实体
+  * create time  ：2020/8/9  16:07
+  */
 public class ChapterDto {
     private String id;
 
