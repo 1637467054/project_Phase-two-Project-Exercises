@@ -62,5 +62,9 @@ public class ChapterService {
         //updateByPrimaryKey是对传入字段全部进行跟新,updateByPrimaryKeySelective则是如果传入的为空就不跟新此字段
         chapterMapper.updateByPrimaryKey(chapter);
     }
+    public void delete(String id){
+        //deleteByPrimaryKey比较坑爹，是主键的字段类型要写成包装类型。比如自增主键，要用 Long 而不是 long
+        chapterMapper.deleteByPrimaryKey(id);
+    }
 
 }
