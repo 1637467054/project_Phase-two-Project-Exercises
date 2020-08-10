@@ -32,9 +32,10 @@ public class ChapterController {
         return responseDto;
     }
 
-    @RequestMapping("add")
-    public ResponseDto add(@RequestBody ChapterDto chapterDto){
-        chapterService.add(chapterDto);
+    @RequestMapping("save")
+    public ResponseDto save(@RequestBody ChapterDto chapterDto){
+        System.out.println(chapterDto);
+        chapterService.save(chapterDto);
         ResponseDto<ChapterDto> responseDto=new ResponseDto<>();
         responseDto.setContent(chapterDto);
         return responseDto;

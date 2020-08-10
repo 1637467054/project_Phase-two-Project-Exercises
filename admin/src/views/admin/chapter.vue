@@ -15,6 +15,7 @@
         <!--pagination是子组件,下面是用来引入子组件的方法，需要先引入-->
         <!--ref就是相当于起了一个别名，然后就可以在js中this.$refs.别名进行调用或修改属性了-->
         <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></pagination>
+
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
@@ -39,51 +40,45 @@
 
                 <td class="center">
                     <div class="hidden-sm hidden-xs btn-group">
-                        <button class="btn btn-xs btn-success">
-                            <i class="ace-icon fa fa-check bigger-120"></i>
-                        </button>
-
-                        <button class="btn btn-xs btn-info">
+                        <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                         </button>
 
                         <button class="btn btn-xs btn-danger">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
-
-                        <button class="btn btn-xs btn-warning">
-                            <i class="ace-icon fa fa-flag bigger-120"></i>
-                        </button>
                     </div>
 
+                    <!--当屏幕显示为小屏的时候显示下面按钮,在这个工程用不到-->
                     <div class="hidden-md hidden-lg">
                         <div class="inline pos-rel">
-                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"
+                                    data-position="auto">
                                 <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
                             </button>
 
                             <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                 <li>
                                     <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																			</span>
+                                        <span class="blue">
+                                            <i class="ace-icon fa fa-search-plus bigger-120"></i>
+                                        </span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
+                                        <span class="green">
+                                            <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                        </span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																			</span>
+                                        <span class="red">
+                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        </span>
                                     </a>
                                 </li>
                             </ul>
@@ -99,7 +94,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">表单</h4>
                     </div>
                     <div class="modal-body">
@@ -134,20 +130,21 @@
 <script>
     //用来引入自己写的主键pagination的
     import Pagination from "../../components/pagination";
+
     export default {
         name: "chapter",
         //components是用来注册组件的(注册之后就可以在html里面使用该标签了)
         components: {Pagination},
-        data:function(){
-            return{
-                chapters:[],
-                chapter:{}
+        data: function () {
+            return {
+                chapters: [],
+                chapter: {}
             }
         },
-        mounted:function () {
+        mounted: function () {
             let _this = this;
             //初始化为5条每页,我们写的代码的默认是10条煤业
-            _this.$refs.pagination.size=5;
+            _this.$refs.pagination.size = 5;
             _this.list(1);
             //激活本页面的左侧导航栏标签(因为我们已经在admin中设置所以不用这个了,这个每个子模块中都得写,太麻烦)
             // this.$parent.activeSidebar("business-chapter-sidebar");
@@ -155,39 +152,50 @@
             //用来设置模态框在点击空白的地方不会关闭(默认的时候打开模态框在点击空白的地方就会关闭)
             // $("#form-modal").modal({backdrop:'static'});
         },
-        methods:{
-            add(){
+        methods: {
+            add() {
                 let _this = this;
+                _this.chapter={};
                 $("#form-modal").modal("show");
             },
 
-            list(page){
+            edit(chapter) {
                 let _this = this;
-                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
-                    page:page,
+                /*如果直接赋值的话对原来的变量做修改就会影响到原来的变量和数据,所以我们用$.extend
+                来把chapter变量复制到{}这个空变量中再赋值给_this.chapter中,就不会发生改变input框中
+                的变量表格中的数据和变量也会跟着发生变化
+                 */
+                _this.chapter=$.extend({},chapter);
+                $("#form-modal").modal("show");
+            },
+
+            list(page) {
+                let _this = this;
+                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
+                    page: page,
                     //$refs是根据名字获取子组件，这里是获取组件里面一个size的变量
                     //this.$refs.子组件名字
-                    size:_this.$refs.pagination.size
-                }).then((response)=>{
-                    console.log("查询大章结果：",response);
-                    let resp=response.data;
-                    _this.chapters=resp.content.list;
+                    size: _this.$refs.pagination.size
+                }).then((response) => {
+                    console.log("查询大章结果：", response);
+                    let resp = response.data;
+                    _this.chapters = resp.content.list;
                     //调用分页组件中的渲染分页组件方法
-                    _this.$refs.pagination.render(page,response.data.total);
+                    _this.$refs.pagination.render(page, response.data.total);
                 })
             },
 
-            save(){
+            save() {
                 let _this = this;
-                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/add',_this.chapter)
-                    .then((response)=>{
-                    console.log("查询大章结果：",response);
-                    let resp=response.data;
-                    if (resp.success){
-                        $("#form-modal").modal("hide");
-                        _this.list(1);
-                    }
-                })
+                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter)
+                    .then((response) => {
+                        console.log("查询大章结果：", response);
+                        let resp = response.data;
+                        if (resp.success) {
+                            $("#form-modal").modal("hide");
+                            _this.list(1);
+                        }
+                    })
             }
         }
     }

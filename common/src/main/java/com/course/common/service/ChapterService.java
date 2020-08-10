@@ -6,11 +6,13 @@ import com.course.common.dto.ChapterDto;
 import com.course.common.dto.PageDto;
 import com.course.common.entity.Chapter;
 import com.course.common.entity.ChapterExample;
+import com.course.common.util.CopyUtil;
 import com.course.common.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -43,11 +45,22 @@ public class ChapterService {
         pageDto.setList(chapterDtoList);
     }
 
-    public void add(ChapterDto chapterDto){
-        chapterDto.setId(UuidUtil.getShortUuid());
-        Chapter chapter=new Chapter();
-        //复制chapterDto到chapter
-        BeanUtils.copyProperties(chapterDto,chapter);
+    public void save(ChapterDto chapterDto){
+        Chapter chapter= CopyUtil.copy(chapterDto,Chapter.class);
+        if (StringUtils.isEmpty(chapterDto.getId())){
+            this.insert(chapter);
+        }else {
+            this.update(chapter);
+        }
+    }
+
+    private void insert(Chapter chapter){
+        chapter.setId(UuidUtil.getShortUuid());
         chapterMapper.insert(chapter);
     }
+    private void update(Chapter chapter){
+        //updateByPrimaryKey是对传入字段全部进行跟新,updateByPrimaryKeySelective则是如果传入的为空就不跟新此字段
+        chapterMapper.updateByPrimaryKey(chapter);
+    }
+
 }
