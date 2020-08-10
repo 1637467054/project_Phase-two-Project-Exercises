@@ -106,15 +106,15 @@
                         <!--form表单代码-->
                         <form class="form-horizontal">
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">名称</label>
+                                <label class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="name" placeholder="名称">
+                                    <input v-model="chapter.name" class="form-control" placeholder="名称">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="ttttt" class="col-sm-2 control-label">课程id</label>
+                                <label class="col-sm-2 control-label">课程id</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="ttttt" placeholder="课程id">
+                                    <input v-model="chapter.courseId" class="form-control" placeholder="课程id">
                                 </div>
                             </div>
 
@@ -123,7 +123,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary">保存</button>
+                        <button type="button" v-on:click="save()" class="btn btn-primary">保存</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -140,7 +140,8 @@
         components: {Pagination},
         data:function(){
             return{
-                chapters:[]
+                chapters:[],
+                chapter:{}
             }
         },
         mounted:function () {
@@ -159,6 +160,7 @@
                 let _this = this;
                 $(".modal").modal("show");
             },
+
             list(page){
                 let _this = this;
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
@@ -171,6 +173,14 @@
                     _this.chapters=response.data.list;
                     //调用分页组件中的渲染分页组件方法
                     _this.$refs.pagination.render(page,response.data.total);
+                })
+            },
+
+            save(){
+                let _this = this;
+                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/add',_this.chapter)
+                    .then((response)=>{
+                    console.log("查询大章结果：",response);
                 })
             }
         }

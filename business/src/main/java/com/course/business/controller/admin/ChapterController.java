@@ -1,5 +1,6 @@
 package com.course.business.controller.admin;
 
+import com.course.common.dto.ChapterDto;
 import com.course.common.dto.PageDto;
 import com.course.common.service.ChapterService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,5 +27,11 @@ public class ChapterController {
     public PageDto list(@RequestBody PageDto pageDto){
         chapterService.list(pageDto);
         return pageDto;
+    }
+
+    @RequestMapping("add")
+    public ChapterDto add(@RequestBody ChapterDto chapterDto){
+        chapterService.add(chapterDto);
+        return chapterDto;
     }
 }

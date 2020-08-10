@@ -6,6 +6,7 @@ import com.course.common.dto.ChapterDto;
 import com.course.common.dto.PageDto;
 import com.course.common.entity.Chapter;
 import com.course.common.entity.ChapterExample;
+import com.course.common.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -40,5 +41,13 @@ public class ChapterService {
             chapterDtoList.add(chapterDto);
         }
         pageDto.setList(chapterDtoList);
+    }
+
+    public void add(ChapterDto chapterDto){
+        chapterDto.setId(UuidUtil.getShortUuid());
+        Chapter chapter=new Chapter();
+        //复制chapterDto到chapter
+        BeanUtils.copyProperties(chapterDto,chapter);
+        chapterMapper.insert(chapter);
     }
 }
