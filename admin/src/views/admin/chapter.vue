@@ -199,14 +199,32 @@
             },
             del(id) {
                 let _this = this;
-                _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/'+id)
-                    .then((response) => {
-                        console.log("删除大章列表结果：", response);
-                        let resp = response.data;
-                        if (resp.success) {
-                            _this.list(1);
-                        }
-                    })
+                Swal.fire({
+                    title: '确定删除吗？',
+                    text: "你将无法恢复它！",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确定删除！'
+                }).then((result) => {
+                    if (result.value) {
+                        _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/'+id)
+                        .then((response) => {
+                            console.log("删除大章列表结果：", response);
+                            let resp = response.data;
+                            if (resp.success) {
+                                _this.list(1);
+                                Swal.fire(
+                                    '删除！',
+                                    '你的大章已经被删除。',
+                                    'success'
+                                );
+                            }
+                        });
+                    }
+                });
+
             },
 
         }
