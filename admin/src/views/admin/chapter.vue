@@ -1,11 +1,14 @@
 <template>
     <div>
         <p>
-            <button v-on:click="list()" class="btn btn-white btn-default btn-round">
+            <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
                 <i class="ace-icon fa fa-refresh"></i>
                 刷新
             </button>
         </p>
+        <!--pagination是子组件,下面是用来引入子组件的方法，需要先引入-->
+        <!--ref就是相当于起了一个别名，然后就可以在js中this.$refs.别名进行调用或修改属性了-->
+        <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></pagination>
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
@@ -88,8 +91,12 @@
 </template>
 
 <script>
+    //用来引入自己写的主键pagination的
+    import Pagination from "../../components/pagination";
     export default {
         name: "chapter",
+        //components是用来注册组件的(注册之后就可以在html里面使用该标签了)
+        components: {Pagination},
         data:function(){
             return{
                 chapters:[]
@@ -97,19 +104,26 @@
         },
         mounted:function () {
             let _this = this;
-            _this.list();
+            //初始化为5条每页,我们写的代码的默认是10条煤业
+            _this.$refs.pagination.size=5;
+            _this.list(1);
+            //激活本页面的左侧导航栏标签(因为我们已经在admin中设置所以不用这个了,这个每个子模块中都得写,太麻烦)
             // this.$parent.activeSidebar("business-chapter-sidebar");
 
         },
         methods:{
-            list(){
+            list(page){
                 let _this = this;
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
-                    page:1,
-                    size:1
+                    page:page,
+                    //$refs是根据名字获取子组件，这里是获取组件里面一个size的变量
+                    //this.$refs.子组件名字
+                    size:_this.$refs.pagination.size
                 }).then((response)=>{
                     console.log("查询大章结果：",response);
-                    this.chapters=response.data.list;
+                    _this.chapters=response.data.list;
+                    //调用分页组件中的渲染分页组件方法
+                    _this.$refs.pagination.render(page,response.data.total);
                 })
             }
         }
