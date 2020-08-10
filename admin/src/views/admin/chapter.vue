@@ -95,7 +95,7 @@
         </table>
 
         <!--下面是模态框注册框-->
-        <div class="modal fade" tabindex="-1" role="dialog">
+        <div id="form-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -153,12 +153,12 @@
             // this.$parent.activeSidebar("business-chapter-sidebar");
 
             //用来设置模态框在点击空白的地方不会关闭(默认的时候打开模态框在点击空白的地方就会关闭)
-            // $(".modal").modal({backdrop:'static'});
+            // $("#form-modal").modal({backdrop:'static'});
         },
         methods:{
             add(){
                 let _this = this;
-                $(".modal").modal("show");
+                $("#form-modal").modal("show");
             },
 
             list(page){
@@ -170,7 +170,8 @@
                     size:_this.$refs.pagination.size
                 }).then((response)=>{
                     console.log("查询大章结果：",response);
-                    _this.chapters=response.data.list;
+                    let resp=response.data;
+                    _this.chapters=resp.content.list;
                     //调用分页组件中的渲染分页组件方法
                     _this.$refs.pagination.render(page,response.data.total);
                 })
@@ -181,6 +182,11 @@
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/add',_this.chapter)
                     .then((response)=>{
                     console.log("查询大章结果：",response);
+                    let resp=response.data;
+                    if (resp.success){
+                        $("#form-modal").modal("hide");
+                        _this.list(1);
+                    }
                 })
             }
         }
