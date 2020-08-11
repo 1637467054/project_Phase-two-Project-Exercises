@@ -1,7 +1,7 @@
 Toast={
     success:function (message) {
         Swal.fire({
-            position: 'enter',
+            position: '',
             icon: 'success',
             title: message,
             showConfirmButton: false,
@@ -19,7 +19,7 @@ Toast={
     },
     warning:function (message) {
         Swal.fire({
-            position: 'top-end',
+            position: '',//top-end
             icon: 'warning',
             title: message,
             showConfirmButton: false,
