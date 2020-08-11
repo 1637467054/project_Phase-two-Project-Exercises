@@ -171,24 +171,28 @@
 
             list(page) {
                 let _this = this;
+                Loading.show();
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
                     page: page,
                     //$refs是根据名字获取子组件，这里是获取组件里面一个size的变量
                     //this.$refs.子组件名字
                     size: _this.$refs.pagination.size
                 }).then((response) => {
+                    Loading.hide();
                     console.log("查询大章结果：", response);
                     let resp = response.data;
                     _this.chapters = resp.content.list;
                     //调用分页组件中的渲染分页组件方法
-                    _this.$refs.pagination.render(page, response.data.total);
+                    _this.$refs.pagination.render(page, resp.content.total);
                 })
             },
 
             save() {
+                Loading.show();
                 let _this = this;
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter)
                     .then((response) => {
+                        Loading.hide();
                         console.log("查询大章结果：", response);
                         let resp = response.data;
                         if (resp.success) {
@@ -209,9 +213,11 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: '确定删除！'
                 }).then((result) => {
+                    Loading.show();
                     if (result.value) {
                         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/'+id)
                         .then((response) => {
+                            Loading.hide();
                             console.log("删除大章列表结果：", response);
                             let resp = response.data;
                             if (resp.success) {
