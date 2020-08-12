@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class MainGenerator {
     static String toServerPath="common\\src\\main\\java\\com\\course\\common\\service\\";
+    static String toControllerPath="business\\src\\main\\java\\com\\course\\business\\controller\\admin\\";
+
     public static void main(String[] args) throws IOException, TemplateException {
         String Domain="Section";
         String domain="section";
@@ -25,5 +27,9 @@ public class MainGenerator {
 
         FreemarkerUtil.initConfig("service.ftl");
         FreemarkerUtil.generator(toServerPath+Domain+"Service.java",map);
+
+        FreemarkerUtil.initConfig("controller.ftl");
+        FreemarkerUtil.generator(toControllerPath+Domain+"Controller.java",map);
+
     }
 }
