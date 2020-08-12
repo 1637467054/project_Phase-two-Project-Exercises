@@ -179,7 +179,7 @@
                     size: _this.$refs.pagination.size
                 }).then((response) => {
                     Loading.hide();
-                    console.log("查询大章结果：", response);
+                    // console.log("查询大章结果：", response);
                     let resp = response.data;
                     _this.chapters = resp.content.list;
                     //调用分页组件中的渲染分页组件方法
@@ -198,7 +198,7 @@
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter)
                     .then((response) => {
                         Loading.hide();
-                        console.log("查询大章结果：", response);
+                        // console.log("查询大章结果：", response);
                         let resp = response.data;
                         if (resp.success) {
                             $("#form-modal").modal("hide");
@@ -216,7 +216,7 @@
                     _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/'+id)
                     .then((response) => {
                         Loading.hide();
-                        console.log("删除大章列表结果：", response);
+                        // console.log("删除大章列表结果：", response);
                         let resp = response.data;
                         if (resp.success) {
                             _this.list(1);
