@@ -34,6 +34,7 @@ public class TestUtil {
         //根据模板要生成一个什么样的文件
         FileWriter fw = new FileWriter(toPath + "Test.java");
         BufferedWriter bw = new BufferedWriter(fw);
+        //传入模板中要修改的变量
         temp.process(null, bw);
         bw.flush();
         fw.close();
