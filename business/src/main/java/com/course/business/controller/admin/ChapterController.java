@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 public class ChapterController {
     @Resource
     ChapterService chapterService;
+    public static final String BUSINESS_NAME="大章";
 
 //    @GetMapping(value = "/chapter", produces = { "application/json;charset=UTF-8" })
     @PostMapping("list")

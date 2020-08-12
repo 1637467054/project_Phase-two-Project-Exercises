@@ -64,7 +64,12 @@
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>1.2.10</version>
             </dependency>
-
+            <!--序列化(把JavaBean对象转化成Json格式的字符串)和反序列化(把JSON格式的字符串转化为Java Bean对象)的阿里的包-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.60</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
