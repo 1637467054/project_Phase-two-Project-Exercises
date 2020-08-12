@@ -1,4 +1,4 @@
--- 测试表
+-- -------------------------测试表-------------------------
 drop table if exists test;
 create table test
 (
@@ -14,8 +14,7 @@ values (2, '测试2');
 
 select *
 from test;
-
--- 正课表1(课程表)
+-- -------------------------正课表1(课程表)-------------------------
 drop table if exists `chapter`;
 create table `chapter`
 (
@@ -45,3 +44,27 @@ insert into `chapter` (id,course_id,name) values ('00000017','00000000','测试�
 insert into `chapter` (id,course_id,name) values ('00000018','00000000','测试大章18');
 insert into `chapter` (id,course_id,name) values ('00000019','00000000','测试大章19');
 insert into `chapter` (id,course_id,name) values ('00000020','00000000','测试大章20');
+-- -------------------------小节表-------------------------
+drop table if exists `section`;
+create table `section`(
+  -- default是默认值约束
+  `id` char(8) not null default '' comment 'ID',
+  `title` varchar(50) not null comment '标题',
+  `course_id` char(8) comment '课程|course.id',
+  `chapter_id` char(8) comment '大章|chapter.id',
+  `video` varchar(200) comment '视频',
+  `time` int comment '顺序',
+  `charge` char(1) comment '收费|C 收费;F 免费',
+  `sort` int comment '顺序',
+  `created_at` datetime comment '创建时间',
+  `updated_at` datetime comment '修改时间',
+  primary key (`id`)
+)engine = InnoDB default charset =utf8mb4 comment = '小节';
+
+insert into `section` (id, title, course_id, chapter_id, video, time, charge, sort, created_at, updated_at)
+VALUES ('00000001','测试小节001','00000001','00000000','',500,'F',1,now(),now());
+
+
+
+
+
