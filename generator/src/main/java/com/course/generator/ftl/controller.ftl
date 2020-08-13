@@ -1,4 +1,4 @@
-package com.course.business.controller.admin;
+package com.course.${module}.controller.admin;
 
 import com.course.common.dto.${Domain}Dto;
 import com.course.common.dto.PageDto;
@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 public class ${Domain}Controller {
     @Resource
     ${Domain}Service ${domain}Service;
-    public static final String BUSINESS_NAME="大章";
+    public static final String BUSINESS_NAME="${tableNameCn}";
 
 //    @GetMapping(value = "/${domain}", produces = { "application/json;charset=UTF-8" })
     @PostMapping("list")
