@@ -21,7 +21,18 @@ public class ValidatorUtil {
             throw new ValidatorException(fieldName+"不能为空");
         }
     }
+    /**
+      * description  ：这个是长度校验
+      * @Param: str         被校验的字符串
+      * @Param: fieldName   被校验的字段名
+      * @Param: min         最小长度
+      * @Param: max         最大长度
+      */
     public static void length(String str,String fieldName,int min,int max){
+        //如果传进来的值为空我们就直接return,用StringUtil判断同时判断了为null时返回false,用String自带的isEmpty判断为null时会报空指针
+        if (StringUtils.isEmpty(str)){
+            return;
+        }
         int length=0;
         if (!StringUtils.isEmpty(str)){
             length=str.length();

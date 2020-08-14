@@ -181,11 +181,20 @@
             save() {
                 let _this = this;
                 <#--//保存校验-->
-                <#--if (!Validator.require(_this.${domain}.name,"名称")-->
-                <#--||!Validator.require(_this.${domain}.courseId,"课程ID")因为有长度校验就不用加非空校验了-->
-                <#--||!Validator.length(_this.${domain}.courseId,"课程ID",1,8)){-->
-                    <#--return;-->
-                <#--}-->
+                if (1!=1
+                <#list fieldList as field>
+                <#--nullAble允许为空返回ture,不能为空返回false-->
+                <#if !field.nullAble>
+                <#--如果它不能为空则执行费空校验-->
+                ||!Validator.require(_this.${domain}.${field.nameHump},"${field.nameCn}")
+                </#if>
+                <#if (field.length>0)>
+                ||!Validator.length(_this.${domain}.${field.nameHump},"${field.nameCn}",1,${field.length})
+                </#if>
+                </#list>
+                ){
+                    return;
+                }
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER+'/${module}/admin/${domain}/save', _this.${domain})
                     .then((response) => {

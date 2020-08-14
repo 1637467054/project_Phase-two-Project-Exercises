@@ -70,10 +70,13 @@ public class DbUtil {
         ResultSet rs=stmt.executeQuery("show full columns from `"+tableName+"`");
         if (rs!=null){
             while(rs.next()){
+                // 获取字段名：course_id
                 String columnName=rs.getString("Field");
+                // 获取字段类型：char(8)
                 String type=rs.getString("Type");
+                // 获取注释内容(中文名)
                 String comment=rs.getString("Comment");
-                //YES NO
+                //YES NO(查看当前列是否可以为空，能则返回YES 不能则返回NO)
                 String nullAble=rs.getString("Null");
                 Field field=new Field();
                 field.setName(columnName);
@@ -82,16 +85,22 @@ public class DbUtil {
                 field.setType(type);
                 field.setJavaType(DbUtil.sqlTypeToJavaType(rs.getString("Type")));
                 field.setComment(comment);
+                //contains当且仅当此字符串包含指定的char值序列时，返回true。
                 if (comment.contains("|")){
                     field.setNameCn(comment.substring(0,comment.indexOf("|")));
                 }else {
                     field.setNameCn(comment);
                 }
+                //允许为空返回ture,不能为空返回false
                 field.setNullAble("YES".equals(nullAble));
+                //String.toUpperCase是将小写转为大写,contains当且仅当此字符串包含指定的char值序列时，返回true。
                 if (type.toUpperCase().contains("varchar".toUpperCase())){
+                    //indexOf是返回某个字符串在这个字符串中出现的第一此位置的索引，如果没有出现则返回-1,substring是截取字符串(这个判断大概就是如果这个字段在数据库中是varchar类型的话就获取varchar(数字)中的数字)
                     String lengthStr=type.substring(type.indexOf("(")+1,type.length()-1);
+                    //把数字转换为Integer包装类传入实体
                     field.setLength(Integer.valueOf(lengthStr));
                 }else {
+                    //如果不是"varchar"类型就返回0
                     field.setLength(0);
                 }
 //                if (comment.contains("枚举")) {

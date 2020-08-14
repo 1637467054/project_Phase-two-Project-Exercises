@@ -35,9 +35,16 @@ public class ${Domain}Controller {
 
     @PostMapping("save")
     public ResponseDto save(@RequestBody ${Domain}Dto ${domain}Dto){
-        ValidatorUtil.require(${domain}Dto.getName(),"名称");
-        ValidatorUtil.require(${domain}Dto.getCourseId(),"课程ID");
-        ValidatorUtil.length(${domain}Dto.getCourseId(),"课程ID",1,8);
+        //保存校验
+    <#list fieldList as field>
+        <#--在nullAble中true是可以为空,flase是不能为空,这是是如果不能为空则执行下面的语句-->
+        <#if !field.nullAble>
+        ValidatorUtil.require(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}");
+        </#if>
+        <#if (field.length>0)>
+        ValidatorUtil.length(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}",1,${field.length});
+        </#if>
+    </#list>
         System.out.println(${domain}Dto);
         ${domain}Service.save(${domain}Dto);
         ResponseDto<${Domain}Dto> responseDto=new ResponseDto<>();

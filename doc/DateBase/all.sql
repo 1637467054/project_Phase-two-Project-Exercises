@@ -64,6 +64,11 @@ create table `section`(
 insert into `section` (id, title, course_id, chapter_id, video, time, charge, sort, created_at, updated_at)
 VALUES ('00000001','测试小节001','00000001','00000000','',500,'F',1,now(),now());
 
+show full columns from section;
+
+
+
+
 
 
 
