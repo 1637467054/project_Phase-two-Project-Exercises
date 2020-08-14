@@ -1,4 +1,4 @@
-package com.course.generator.main;
+package com.course.generator.vue;
 
 import com.course.generator.util.DbUtil;
 import com.course.generator.util.Field;
@@ -21,15 +21,13 @@ import java.util.*;
  * @description :代码生成器
  * @modified By :
  */
-public class MainGenerator {
+public class VueGenerator {
     /**
      * MODULE是模块名称
      */
     static String MODULE = "business";
-    static String toDtoPath="common\\src\\main\\java\\com\\course\\common\\dto\\";
-    static String toServerPath="common\\src\\main\\java\\com\\course\\common\\service\\";
-    static String toControllerPath=MODULE+"\\src\\main\\java\\com\\course\\"+MODULE+"\\controller\\admin\\";
-    static String generatorConfigPath="common\\src\\main\\resources\\generator\\generatorConfig.xml";
+    static String toVuePath = "admin\\src\\views\\admin\\";
+    static String generatorConfigPath = "common\\src\\main\\resources\\generator\\generatorConfig.xml";
 
     public static void main(String[] args) throws IOException, TemplateException, SQLException, DocumentException {
         String module=MODULE;
@@ -67,16 +65,8 @@ public class MainGenerator {
         map.put("fieldList",fieldList);
         map.put("typeSet",typeSet);
         //生成dto
-        FreemarkerUtil.initConfig("dto.ftl");
-        FreemarkerUtil.generator(toDtoPath+Domain+"Dto.java",map);
-
-        //生成service
-        FreemarkerUtil.initConfig("service.ftl");
-        FreemarkerUtil.generator(toServerPath+Domain+"Service.java",map);
-
-        //生成controller
-        FreemarkerUtil.initConfig("controller.ftl");
-        FreemarkerUtil.generator(toControllerPath+Domain+"Controller.java",map);
+        FreemarkerUtil.initConfig("vue.ftl");
+        FreemarkerUtil.generator(toVuePath +domain+".vue",map);
 
     }
     private static Set<String> getJavaTypes(List<Field> fieldList){

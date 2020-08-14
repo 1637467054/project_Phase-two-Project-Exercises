@@ -526,6 +526,18 @@
 
                                 <b class="arrow"></b>
                             </li>
+
+                            <li class="active" id="business-section-sidebar">
+                                <!--router-link的功能和a标签相似,只不过a标签需要从新渲染有视觉闪烁,router-link不需要重新渲染-->
+                                <router-link to="/business/section" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+
+                                    小节管理
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </router-link>
+
+                                <b class="arrow"></b>
+                            </li>
                         </ul>
 
 
