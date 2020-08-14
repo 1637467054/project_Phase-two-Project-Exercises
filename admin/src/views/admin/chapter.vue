@@ -172,7 +172,7 @@
             list(page) {
                 let _this = this;
                 Loading.show();
-                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
+                _this.$ajax.post(process.env.VUE_APP_SERVER+'/business/admin/chapter/list', {
                     page: page,
                     //$refs是根据名字获取子组件，这里是获取组件里面一个size的变量
                     //this.$refs.子组件名字
@@ -195,7 +195,7 @@
                     return;
                 }
                 Loading.show();
-                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter)
+                _this.$ajax.post(process.env.VUE_APP_SERVER+'/business/admin/chapter/save', _this.chapter)
                     .then((response) => {
                         Loading.hide();
                         // console.log("查询大章结果：", response);
@@ -213,7 +213,7 @@
                 let _this = this;
                 Confirm.warning("删除","您将无法恢复它",function () {
                     Loading.show();
-                    _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/'+id)
+                    _this.$ajax.delete(process.env.VUE_APP_SERVER+'/business/admin/chapter/delete/'+id)
                     .then((response) => {
                         Loading.hide();
                         // console.log("删除大章列表结果：", response);

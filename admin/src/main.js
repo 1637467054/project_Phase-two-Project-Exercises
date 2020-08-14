@@ -22,3 +22,6 @@ new Vue({
   router,
   render: h => h(App),
 }).$mount('#app');
+
+console.log("开发环境：",process.env.NODE_ENV);
+console.log("ip地址：",process.env.VUE_APP_SERVER);
