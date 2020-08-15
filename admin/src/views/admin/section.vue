@@ -27,24 +27,28 @@
                 <th class="center">顺序</th>
                 <th class="center">收费</th>
                 <th class="center">顺序</th>
-                <th class="center">创建时间</th>
-                <th class="center">修改时间</th>
                 <th class="center">操作</th>
             </tr>
             </thead>
 
             <tbody>
             <tr v-for="section in sections">
-                    <td class="center">{{section.id}}</td>
-                    <td class="center">{{section.title}}</td>
-                    <td class="center">{{section.courseId}}</td>
-                    <td class="center">{{section.chapterId}}</td>
-                    <td class="center">{{section.video}}</td>
-                    <td class="center">{{section.time}}</td>
-                    <td class="center">{{section.charge}}</td>
-                    <td class="center">{{section.sort}}</td>
-                    <td class="center">{{section.createdAt}}</td>
-                    <td class="center">{{section.updatedAt}}</td>
+
+                <td class="center">{{section.id}}</td>
+
+                <td class="center">{{section.title}}</td>
+
+                <td class="center">{{section.courseId}}</td>
+
+                <td class="center">{{section.chapterId}}</td>
+
+                <td class="center">{{section.video}}</td>
+
+                <td class="center">{{section.time}}</td>
+
+                <td class="center">{{section.charge}}</td>
+
+                <td class="center">{{section.sort}}</td>
 
                 <td class="center">
                     <div class="hidden-sm hidden-xs btn-group">
@@ -111,13 +115,6 @@
                         <form class="form-horizontal">
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">ID</label>
-                                <div class="col-sm-10">
-                                    <input v-model="section.id" class="form-control" placeholder="ID">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label class="col-sm-2 control-label">标题</label>
                                 <div class="col-sm-10">
                                     <input v-model="section.title" class="form-control" placeholder="标题">
@@ -165,21 +162,6 @@
                                     <input v-model="section.sort" class="form-control" placeholder="顺序">
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">创建时间</label>
-                                <div class="col-sm-10">
-                                    <input v-model="section.createdAt" class="form-control" placeholder="创建时间">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">修改时间</label>
-                                <div class="col-sm-10">
-                                    <input v-model="section.updatedAt" class="form-control" placeholder="修改时间">
-                                </div>
-                            </div>
-
                         </form>
 
                     </div>
@@ -255,7 +237,6 @@
 
             save() {
                 let _this = this;
-
                 if (1!=1
                 ||!Validator.require(_this.section.title,"标题")
                 ||!Validator.length(_this.section.title,"标题",1,50)

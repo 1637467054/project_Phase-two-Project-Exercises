@@ -17,6 +17,11 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+<#list typeSet as type>
+    <#if type=="Date">
+import java.util.Date;
+    </#if>
+</#list>
 
 @Service
 public class ${Domain}Service {
@@ -29,7 +34,11 @@ public class ${Domain}Service {
         //pageHelper的使用规则是：调用startPage方法之后，执行的第一个select语句会进行分页
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         ${Domain}Example ${domain}Example=new ${Domain}Example();
-        ${domain}Example.setOrderByClause("id desc");
+        <#list fieldList as field>
+            <#if field.nameHump=="sort">
+        ${domain}Example.setOrderByClause("sort asc");
+            </#if>
+        </#list>
         List<${Domain}> ${domain}List = ${domain}Mapper.selectByExample(${domain}Example);
         //获取PageInfo对象
         PageInfo<${Domain}> pageInfo=new PageInfo<>(${domain}List);
@@ -55,10 +64,24 @@ public class ${Domain}Service {
     }
 
     private void insert(${Domain} ${domain}){
+        Date now = new Date();
+        <#list fieldList as field>
+            <#if field.nameHump=='createdAt'>
+        ${domain}.setCreatedAt(now);
+            </#if>
+            <#if field.nameHump=='updatedAt'>
+        ${domain}.setUpdatedAt(now);
+            </#if>
+        </#list>
         ${domain}.setId(UuidUtil.getShortUuid());
         ${domain}Mapper.insert(${domain});
     }
     private void update(${Domain} ${domain}){
+        <#list fieldList as field>
+            <#if field.nameHump=='updatedAt'>
+                ${domain}.setUpdatedAt(new Date());
+            </#if>
+        </#list>
         //updateByPrimaryKey是对传入字段全部进行跟新,updateByPrimaryKeySelective则是如果传入的为空就不跟新此字段
         ${domain}Mapper.updateByPrimaryKey(${domain});
     }

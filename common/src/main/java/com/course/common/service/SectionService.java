@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class SectionService {
@@ -29,7 +30,7 @@ public class SectionService {
         //pageHelper的使用规则是：调用startPage方法之后，执行的第一个select语句会进行分页
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         SectionExample sectionExample=new SectionExample();
-        sectionExample.setOrderByClause("id desc");
+        sectionExample.setOrderByClause("sort asc");
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
         //获取PageInfo对象
         PageInfo<Section> pageInfo=new PageInfo<>(sectionList);
@@ -55,10 +56,14 @@ public class SectionService {
     }
 
     private void insert(Section section){
+        Date now = new Date();
+        section.setCreatedAt(now);
+        section.setUpdatedAt(now);
         section.setId(UuidUtil.getShortUuid());
         sectionMapper.insert(section);
     }
     private void update(Section section){
+                section.setUpdatedAt(new Date());
         //updateByPrimaryKey是对传入字段全部进行跟新,updateByPrimaryKeySelective则是如果传入的为空就不跟新此字段
         sectionMapper.updateByPrimaryKey(section);
     }

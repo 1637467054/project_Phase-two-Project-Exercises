@@ -19,19 +19,24 @@
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
-                <#list fieldList as field>
+            <#list fieldList as field>
+                <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt">
                 <th class="center">${field.nameCn}</th>
-                </#list>
+                </#if>
+            </#list>
                 <th class="center">操作</th>
             </tr>
             </thead>
 
             <tbody>
             <tr v-for="${domain} in ${domain}s">
-                <#list fieldList as field>
-                    <td class="center">{{${domain}.${field.nameHump}}}</td>
-                </#list>
 
+            <#list fieldList as field>
+                <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt">
+                <td class="center">{{${domain}.${field.nameHump}}}</td>
+
+                </#if>
+            </#list>
                 <td class="center">
                     <div class="hidden-sm hidden-xs btn-group">
                         <button v-on:click="edit(${domain})" class="btn btn-xs btn-info">
@@ -95,7 +100,8 @@
                     <div class="modal-body">
                         <!--form表单代码-->
                         <form class="form-horizontal">
-                            <#list fieldList as field>
+                        <#list fieldList as field>
+                        <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="id">
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">${field.nameCn}</label>
@@ -103,8 +109,8 @@
                                     <input v-model="${domain}.${field.nameHump}" class="form-control" placeholder="${field.nameCn}">
                                 </div>
                             </div>
-                            </#list>
-
+                        </#if>
+                        </#list>
                         </form>
 
                     </div>
@@ -183,13 +189,15 @@
                 <#--//保存校验-->
                 if (1!=1
                 <#list fieldList as field>
-                <#--nullAble允许为空返回ture,不能为空返回false-->
-                <#if !field.nullAble>
-                <#--如果它不能为空则执行费空校验-->
+                <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="id" && field.nameHump!="sort">
+                    <#--nullAble允许为空返回ture,不能为空返回false-->
+                    <#if !field.nullAble>
+                    <#--如果它不能为空则执行费空校验-->
                 ||!Validator.require(_this.${domain}.${field.nameHump},"${field.nameCn}")
-                </#if>
-                <#if (field.length>0)>
+                    </#if>
+                    <#if (field.length>0)>
                 ||!Validator.length(_this.${domain}.${field.nameHump},"${field.nameCn}",1,${field.length})
+                    </#if>
                 </#if>
                 </#list>
                 ){

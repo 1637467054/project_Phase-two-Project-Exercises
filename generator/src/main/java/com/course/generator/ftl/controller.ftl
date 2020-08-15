@@ -37,6 +37,8 @@ public class ${Domain}Controller {
     public ResponseDto save(@RequestBody ${Domain}Dto ${domain}Dto){
         //保存校验
     <#list fieldList as field>
+        <#--          id                      创建时间                        修改时间                       顺序-->
+    <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="sort">
         <#--在nullAble中true是可以为空,flase是不能为空,这是是如果不能为空则执行下面的语句-->
         <#if !field.nullAble>
         ValidatorUtil.require(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}");
@@ -44,6 +46,7 @@ public class ${Domain}Controller {
         <#if (field.length>0)>
         ValidatorUtil.length(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}",1,${field.length});
         </#if>
+    </#if>
     </#list>
         System.out.println(${domain}Dto);
         ${domain}Service.save(${domain}Dto);
