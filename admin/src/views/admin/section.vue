@@ -186,7 +186,7 @@
     import Pagination from "../../components/pagination";
 
     export default {
-        name: "section",
+        name: "business-section",
         //components是用来注册组件的(注册之后就可以在html里面使用该标签了)
         components: {Pagination},
         data: function () {
