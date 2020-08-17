@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './app.vue'
 import router from "./router.js"
 import axios from 'axios'
+import filter from "./filter/filter"
 
 Vue.config.productionTip = false;
 Vue.prototype.$ajax=axios;
@@ -17,6 +18,11 @@ axios.interceptors.response.use(function (response) {
   console.log("返回参数：",response);
   return response;
 },error => {});
+
+//全局过滤器(对filter进行遍历，key是方法名，filter[key]是方法)
+Object.keys(filter).forEach(key=>{
+  Vue.filter(key,filter[key]);
+});
 
 new Vue({
   router,
