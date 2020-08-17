@@ -44,7 +44,8 @@ public class ${Domain}Controller {
         ValidatorUtil.require(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}");
         </#if>
         <#if (field.length>0)>
-        ValidatorUtil.length(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}",1,${field.length});
+            <#--freemarker中的c函数是      将数字转换成字符串的函数     ，当你在页面中要显示带小数的数字时，一定要写成${x?c}而不能写成${x?default('')}，否则显示出的数字都变成了整数，小数位都被自动截掉了。如果不写是大一点的数也会自动加上逗号，例如100000000 显示为 100,000,000-->
+        ValidatorUtil.length(${domain}Dto.get${field.nameBigHump}(),"${field.nameCn}",1,${field.length?c});
         </#if>
     </#if>
     </#list>

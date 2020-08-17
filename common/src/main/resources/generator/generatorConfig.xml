@@ -43,8 +43,10 @@
                              targetPackage="com.course.common.dao"
                              type="XMLMAPPER" />
         <!--下面的都是表的生成方法-->
+        <!--<table tableName="表名" domainObjectName="创建的时候的类名"/>-->
         <!--<table tableName="test" domainObjectName="Test"/>-->
         <!--<table tableName="chapter" domainObjectName="Chapter"/>-->
-        <table tableName="section" domainObjectName="Section"/>
+        <!--<table tableName="section" domainObjectName="Section"/>-->
+        <table tableName="course" domainObjectName="Course"/>
     </context>
 </generatorConfiguration>

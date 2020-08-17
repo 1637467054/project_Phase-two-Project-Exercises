@@ -16,7 +16,7 @@ public class ValidatorUtil {
      * @param str
      * @param fieldName
      */
-    public static void require(String str,String fieldName){
+    public static void require(Object str,String fieldName){
         if (StringUtils.isEmpty(str)){
             throw new ValidatorException(fieldName+"不能为空");
         }

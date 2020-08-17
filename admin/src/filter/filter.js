@@ -23,7 +23,6 @@ let optionKV=(object,key)=>{
     }else {
         let result="";
         for (let enums in object) {
-            console.log("com.course.generator.enums:"+enums+";\n"+"object[com.course.generator.enums]:"+object[enums]+";\n"+"object[com.course.generator.enums]['value']:"+object[enums]["value"]+";");
             if (key===object[enums]["key"]){
                 result = object[enums]["value"];
             }

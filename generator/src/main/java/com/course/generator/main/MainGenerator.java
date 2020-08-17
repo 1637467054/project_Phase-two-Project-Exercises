@@ -66,6 +66,10 @@ public class MainGenerator {
         map.put("module",module);
         map.put("fieldList",fieldList);
         map.put("typeSet",typeSet);
+
+        for (Field field : fieldList) {
+            System.out.println(field.getNameCn()+":"+field.getLength());
+        }
         //生成dto
         FreemarkerUtil.initConfig("dto.ftl");
         FreemarkerUtil.generator(toDtoPath+Domain+"Dto.java",map);
