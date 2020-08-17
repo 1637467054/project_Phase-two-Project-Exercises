@@ -48,7 +48,7 @@
 
                 <!--<td class="center">{{section.charge}}</td>-->
                 <!--对CHARGE进行过滤，过滤出section.charge的元素-->
-                <td class="center">{{CHARGE|optionKV(section.charge)}}</td>
+                <td class="center">{{SECTION_CHARGE|optionKV(section.charge)}}</td>
 
                 <td class="center">{{section.sort}}</td>
 
@@ -155,7 +155,7 @@
                                 <label class="col-sm-2 control-label">收费</label>
                                 <div class="col-sm-10">
                                     <select v-model="section.charge" class="form-control">
-                                        <option v-for="o in CHARGE" v-bind:value="o.key">
+                                        <option v-for="o in SECTION_CHARGE" v-bind:value="o.key">
                                             {{o.value}}
                                         </option>
                                     </select>
@@ -193,7 +193,7 @@
             return {
                 sections: [],
                 section: {},
-                CHARGE:CHARGE
+                SECTION_CHARGE:SECTION_CHARGE
             }
         },
         mounted: function () {

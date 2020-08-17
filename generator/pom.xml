@@ -12,6 +12,10 @@
     <artifactId>generator</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.aaa</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
         <!--模板引擎freemarker-->
         <dependency>
             <groupId>org.freemarker</groupId>
