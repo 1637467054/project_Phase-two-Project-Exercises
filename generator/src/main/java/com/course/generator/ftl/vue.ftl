@@ -33,8 +33,13 @@
 
             <#list fieldList as field>
                 <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt">
+                    <#if field.enums>
+                <td class="center">{{${field.enumsConst}|optionKV(${domain}.${field.nameHump})}}</td>
+
+                    <#else>
                 <td class="center">{{${domain}.${field.nameHump}}}</td>
 
+                    </#if>
                 </#if>
             </#list>
                 <td class="center">
@@ -106,7 +111,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">${field.nameCn}</label>
                                 <div class="col-sm-10">
+                            <#if field.enums>
+                                    <select v-model="${domain}.${field.nameHump}" class="form-control">
+                                        <option v-for="o in ${field.enumsConst}" v-bind:value="o.key">{{o.value}}</option>
+                                    </select>
+                            <#else>
                                     <input v-model="${domain}.${field.nameHump}" class="form-control" placeholder="${field.nameCn}">
+                            </#if>
                                 </div>
                             </div>
                         </#if>
@@ -136,6 +147,11 @@
             return {
                 ${domain}s: [],
                 ${domain}: {}
+            <#list fieldList as field>
+                <#if field.enums>,
+            ${field.enumsConst}:${field.enumsConst}
+                </#if>
+            </#list>
             }
         },
         mounted: function () {
